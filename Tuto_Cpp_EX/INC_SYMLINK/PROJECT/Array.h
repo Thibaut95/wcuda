@@ -1,0 +1,1 @@
+/home/arc14/CUDA/toStudent/code/WCuda/Tuto_Cpp_EX//src/cpp/core/10_advanced/b_enfer_or_not/Array.h
