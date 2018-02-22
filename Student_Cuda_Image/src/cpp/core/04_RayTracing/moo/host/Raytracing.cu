@@ -65,7 +65,7 @@ Raytracing::Raytracing(int nbSphere, const Grid& grid, uint w, uint h, float dt)
 
 Raytracing::~Raytracing()
     {
-    //rien
+    Device::free(ptrDevTabSphere);
     }
 
 /*-------------------------*\
@@ -86,7 +86,6 @@ void Raytracing::process(uchar4* ptrPixel, uint w, uint h, const DomaineMath& do
     raytracing<<<dg,db>>>(ptrPixel, ptrDevTabSphere, nbSphere ,w,h,t);
 
     Device::lastCudaError("raytracing rgba uchar4 (after kernel)"); // facultatif, for debug only, remove for release
-
     }
 
 /**
@@ -104,9 +103,10 @@ void Raytracing::animationStep()
 /**
  * Copy the host tab sphere to the device
  */
-void Raytracing::toGM(Sphere* ptrDevSphere)
+void Raytracing::toGM(Sphere* ptrTabSphere)
     {
-     Device::memcpyHToD(ptrDevTabSphere, ptrDevSphere, sizeOctetSpheres);
+    Device::malloc(&ptrDevTabSphere, this->sizeOctetSpheres);
+    Device::memcpyHToD(ptrDevTabSphere, ptrTabSphere, sizeOctetSpheres);
     }
 
 /*----------------------------------------------------------------------*\

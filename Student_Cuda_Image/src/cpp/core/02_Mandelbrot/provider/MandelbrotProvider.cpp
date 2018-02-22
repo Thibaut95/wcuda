@@ -55,7 +55,7 @@ Animable_I<uchar4>* MandelbrotProvider::createAnimable(void)
     int h = 16 * 60;
 
     // Grid Cuda
-    int mp=Device::getMPCount();;
+    int mp=Device::getMPCount();
     int coreMP=Device::getCoreCountMP();
 
     dim3 dg = dim3(mp, 2, 1);  		// disons, a optimiser selon le gpu, peut drastiqument ameliorer ou baisser les performances
